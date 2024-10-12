@@ -15,7 +15,7 @@ endif ()
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/CMake")
 
 #Compile commands, useful for some IDEs like VS-Code
-set(CMAKE_EXPORT_COMPILE_COMMANDS TRUE)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 #Minimum MacOS target, set globally
 if (${CMAKE_SYSTEM_NAME} STREQUAL "iOS")
@@ -43,6 +43,13 @@ find_package(juce REQUIRED)
 
 #By default, we are building the provided plugin/app examples:
 option(BUILD_JUCE_PROTOTYPE_EXAMPLES "Build JUCE prototype examples" ON)
+
+CPMAddPackage(
+        NAME tracktion_engine
+        GITHUB_REPOSITORY Tracktion/tracktion_engine
+        GIT_TAG origin/develop
+        DOWNLOAD_ONLY YES
+)
 
 #adding any custom modules you might have:
 add_subdirectory(Modules)
