@@ -26,6 +26,9 @@ target_compile_definitions(${TargetName} PRIVATE
         JUCE_APPLICATION_VERSION_STRING="$<TARGET_PROPERTY:${TargetName},JUCE_VERSION>")
 
 target_link_libraries(${TargetName} PRIVATE
+        tracktion::tracktion_core
+        tracktion::tracktion_engine
+        tracktion::tracktion_graph
         juce::juce_recommended_config_flags
         juce::juce_recommended_lto_flags
         juce::juce_recommended_warning_flags

@@ -2,6 +2,8 @@
 
 #include <juce_gui_basics/juce_gui_basics.h>
 
+
+
 namespace GuiApp
 {
 //To save some typing, we're gonna import a few commonly used juce classes

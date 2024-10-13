@@ -3,6 +3,9 @@ cmake_minimum_required(VERSION 3.16)
 
 project(JUCECMakeRepo)
 
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
 #This is temporarily needed due to a bug in Xcode 15:
 if (CMAKE_CXX_COMPILER_ID MATCHES "AppleClang")
     if (NOT CMAKE_CXX_COMPILER_VERSION VERSION_LESS "15.0")
@@ -25,7 +28,7 @@ if (${CMAKE_SYSTEM_NAME} STREQUAL "iOS")
     #    set(CMAKE_XCODE_ATTRIBUTE_CODE_SIGN_IDENTITY "iPhone Developer" CACHE STRING "" FORCE)
     #    set(CMAKE_XCODE_ATTRIBUTE_DEVELOPMENT_TEAM "XXXXXXXXXX" CACHE STRING "" FORCE)
 else ()
-    set(CMAKE_OSX_DEPLOYMENT_TARGET "10.11" CACHE STRING "Minimum OS X deployment version" FORCE)
+    set(CMAKE_OSX_DEPLOYMENT_TARGET "10.13" CACHE STRING "Minimum OS X deployment version" FORCE)
 endif ()
 
 option(UniversalBinary "Build universal binary for mac" OFF)
@@ -51,13 +54,17 @@ CPMAddPackage(
         DOWNLOAD_ONLY YES
 )
 
+if(tracktion_engine_ADDED)
+    # add_subdirectory("${tracktion_engine_SOURCE_DIR}/modules/juce" ./cmake_build_juce)
+    add_subdirectory("${tracktion_engine_SOURCE_DIR}/modules")
+endif()
+
 #adding any custom modules you might have:
 add_subdirectory(Modules)
 
 if (${BUILD_JUCE_PROTOTYPE_EXAMPLES})
     #adding project folders:
     add_subdirectory(Apps)
-    add_subdirectory(Plugins)
 endif ()
 
 #optionally, we're also adding the unit tests:
